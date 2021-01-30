@@ -1,8 +1,10 @@
 package app.asahi.nayu.blackboard
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.draw.*
 
 class script : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -11,8 +13,16 @@ class script : AppCompatActivity() {
 
         val button2:Button=findViewById(R.id.button2)
 
+        val button3:Button=findViewById(R.id.button3)
+
         button2.setOnClickListener {
-            
+           finish()
         }
-}
+
+        button3.setOnClickListener {
+            val intent = Intent(this, DrawActivity::class.java)
+            startActivity(intent)
+        }
+
+    }
 }

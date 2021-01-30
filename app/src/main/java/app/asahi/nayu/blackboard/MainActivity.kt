@@ -35,10 +35,14 @@ class MainActivity : AppCompatActivity() {
 
         adapter.addAll(BoardData)
 
-        button.setOnClickListener {
-            val intent = Intent(this, script::class.java)
-            startActivity(intent)
-        }
+
+
+
+            button.setOnClickListener {
+                val intent = Intent(this, script::class.java)
+                 startActivity(intent)
+            }
 
     }
+
 }
