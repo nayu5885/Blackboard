@@ -20,8 +20,8 @@ class MainActivity : AppCompatActivity() {
         BoardData("‥(´・ω・｀)" ,"なんなん"),
         BoardData("‥そろそろ","飽きた"),
         BoardData("‥秋田","山形")
-
     )
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
