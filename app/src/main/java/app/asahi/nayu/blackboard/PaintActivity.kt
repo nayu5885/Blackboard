@@ -2,17 +2,20 @@ package app.asahi.nayu.blackboard
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.graphics.Bitmap
+import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings.Global.putInt
 import android.provider.Settings.Global.putString
+import android.util.AttributeSet
+import android.view.MotionEvent
+import android.view.View
 import android.widget.Button
 import java.nio.ByteBuffer
 import java.util.*
 
-class PaintActivity : AppCompatActivity(context: Context, attrs: AttributeSet? = null): View(context, attrs) {
+class PaintActivity (context: Context, attrs: AttributeSet? = null): View(context, attrs) {
     // 外枠と格子の色や太さなどを表す
     private val gridPaint = Paint()
     // ユーザが使う線の色や太さなどを表す
