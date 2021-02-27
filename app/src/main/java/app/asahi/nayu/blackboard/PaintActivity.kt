@@ -9,11 +9,11 @@ import android.os.Bundle
 import android.provider.Settings.Global.putInt
 import android.provider.Settings.Global.putString
 import android.util.AttributeSet
+import android.util.Base64
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
 import java.nio.ByteBuffer
-import java.util.*
 
 class PaintActivity (context: Context, attrs: AttributeSet? = null): View(context, attrs) {
     // 外枠と格子の色や太さなどを表す

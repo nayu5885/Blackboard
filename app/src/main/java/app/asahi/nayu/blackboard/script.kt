@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.draw.*
+import kotlinx.android.synthetic.main.activity_main2.*
+
+//mport kotlinx.android.synthetic.main.draw.*
 
 class script : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +22,7 @@ class script : AppCompatActivity() {
         }
 
         button3.setOnClickListener {
-            val intent = Intent(this, DrawActivity::class.java)
+            val intent = Intent(this, Main2Activity::class.java)
             startActivity(intent)
         }
 

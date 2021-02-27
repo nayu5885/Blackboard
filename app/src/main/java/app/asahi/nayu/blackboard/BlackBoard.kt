@@ -1,51 +1,38 @@
 package app.asahi.nayu.blackboard
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings.Global.putInt
 import android.provider.Settings.Global.putString
+import android.system.Os.read
 import android.widget.Button
-import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.menu.*
+import io.realm.Realm
+import io.realm.RealmObject
+import io.realm.RealmResults
+import kotlinx.android.synthetic.main.activity_black_board.*
 
-class MainActivity : AppCompatActivity() {
+class BlackBoard : AppCompatActivity() {
 
-    var paintView: PaintView? = null
+    val realm: Realm = Realm.getDefaultInstance()
 
-    val BoardData:List<BoardData> = listOf(
-        BoardData("ここタイトル人生","疲れた"),
-        BoardData("ここタ略かっぱの","河流れ"),
-        BoardData("ここ略出る杭は","打たれる"),
-        BoardData("ここ略ロースト","チキン"),
-        BoardData("こ略片翼の","セフィロス"),
-        BoardData("‥(´・ω・｀)" ,"なんなん"),
-        BoardData("‥そろそろ","飽きた"),
-        BoardData("‥秋田","山形")
-    )
+    var paintView: PaintActivity? = null
 
+    val memo: RealmResults<Memo>? =read()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.menu)
+        setContentView(R.layout.activity_black_board)
 
-        paintView = findViewById(R.id.paintView)
-
-       val button:Button =findViewById(R.id.button)
+        paintView = findViewById(R.id.paintActivity)
         val saveButton: Button = findViewById(R.id.saveButton)
         val loadButton: Button = findViewById(R.id.loadButton)
-
-        val adapter = RecyclerViewAdapter(this)
-        recyclerView.layoutManager =LinearLayoutManager(this)
-        recyclerView.adapter = adapter
-
-        adapter.addAll(BoardData)
-
-        val pref: SharedPreferences = getSharedPreferences("Data", Context.MODE_PRIVATE)
+        // データの保存にSharedPreferencesを使用．自分で実装するときにはRealmを使おう！
+        //val pref: SharedPreferences = getSharedPreferences("Data", Context.MODE_PRIVATE)
+        if (content !=null){
+            paintActivity.setPathColor(memo.content)
+        }
 
         // 保存処理
         saveButton.setOnClickListener {
@@ -61,7 +48,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // 読み込み処理
         loadButton.setOnClickListener {
             // 保存したデータから縦横のサイズとBase64形式の画像データを取得
             val sizeX: Int = pref.getInt("sizeX", 0)
@@ -71,20 +57,22 @@ class MainActivity : AppCompatActivity() {
             // PaintViewのsetImageメソッドに取得したデータを渡す
             paintView?.setImage(sizeX, sizeY, image)
         }
-
-        button.setOnClickListener {
-            val intent = Intent(this, script::class.java)
-            startActivity(intent)
-        }
-
     }
-
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         paintView?.setSize(paintView!!.width, paintView!!.height)
     }
 
+    fun read(): RealmResults<Memo>? {
+        return realm.where(Memo::class.java).findAll()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        realm.close()
+    }
+
+
+}
 
