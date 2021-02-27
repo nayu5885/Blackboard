@@ -15,11 +15,11 @@ import kotlinx.android.synthetic.main.activity_black_board.*
 
 class BlackBoard : AppCompatActivity() {
 
-    val realm: Realm = Realm.getDefaultInstance()
+    //val realm: Realm = Realm.getDefaultInstance()
 
     var paintView: PaintActivity? = null
 
-    val memo: RealmResults<Memo>? =read()
+   // val memo: RealmResults<Memo>? =read()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,10 +29,10 @@ class BlackBoard : AppCompatActivity() {
         val saveButton: Button = findViewById(R.id.saveButton)
         val loadButton: Button = findViewById(R.id.loadButton)
         // データの保存にSharedPreferencesを使用．自分で実装するときにはRealmを使おう！
-        //val pref: SharedPreferences = getSharedPreferences("Data", Context.MODE_PRIVATE)
-        if (content !=null){
-            paintActivity.setPathColor(memo.content)
-        }
+        val pref: SharedPreferences = getSharedPreferences("Data", Context.MODE_PRIVATE)
+       // if (content !=null){
+         //   paintActivity.setPathColor(memo.content)
+      //  }
 
         // 保存処理
         saveButton.setOnClickListener {
@@ -40,9 +40,9 @@ class BlackBoard : AppCompatActivity() {
             val strImage = paintView?.getImageStr() ?: return@setOnClickListener
 
             // Base64の文字列から画像を作成するために必要なデータ（縦横のサイズとBase64形式の画像データ）を保存
-            pref.edit().apply {
+           pref .edit().apply {
                 putInt("sizeX", paintView?.sizeX ?: 0)
-                putInt("sizeY", paintView?.sizeY ?: 0)
+               putInt("sizeY", paintView?.sizeY ?: 0)
                 putString("image", strImage)
                 apply()
             }
@@ -64,14 +64,14 @@ class BlackBoard : AppCompatActivity() {
         paintView?.setSize(paintView!!.width, paintView!!.height)
     }
 
-    fun read(): RealmResults<Memo>? {
-        return realm.where(Memo::class.java).findAll()
-    }
+    //fun read(): RealmResults<Memo>? {
+      //  return realm.where(Memo::class.java).findFirst()
+    //}
 
-    override fun onDestroy() {
-        super.onDestroy()
-        realm.close()
-    }
+   // override fun onDestroy() {
+      //  super.onDestroy()
+      //  realm.close()
+   // }
 
 
 }

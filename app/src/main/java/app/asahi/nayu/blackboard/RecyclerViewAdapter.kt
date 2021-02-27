@@ -2,16 +2,19 @@ package app.asahi.nayu.blackboard
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.list.view.*
 
-class RecyclerViewAdapter(private val context:Context):
-    RecyclerView.Adapter <RecyclerViewAdapter.ViewHolder>(){
+class RecyclerViewAdapter(
+    private val context: Context,
+    param: OnItemClickListner
+): RecyclerView.Adapter <RecyclerViewAdapter.ViewHolder>(){
         val items : MutableList<BoardData> = mutableListOf()
+
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
             LayoutInflater.from(context).inflate(R.layout.list,parent,false)
@@ -20,6 +23,10 @@ class RecyclerViewAdapter(private val context:Context):
 
     override fun getItemCount(): Int {
         return items.size
+    }
+
+    interface OnItemClickListner{
+        fun onItemClick(item: BoardData)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

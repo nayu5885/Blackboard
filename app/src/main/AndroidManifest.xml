@@ -12,13 +12,13 @@
             android:theme="@style/AppTheme">
 
 
-        <activity android:name=".BlackBoard">
+        <activity android:name=".Main2Activity">
         </activity>
         <activity android:name=".script">
         </activity>
 
 
-        <activity android:name=".Main2Activity">
+        <activity android:name=".BlackBoard">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
